@@ -37,11 +37,11 @@ public class EmployeeRepository {
 	/**
 	 * 従業員一覧情報を入社日順で取得する 従業員が存在しない場合はサイズ0件の従業員一覧を返す
 	 * 
-	 * @return 全従業員一覧
+	 * @return List<Employee> employeeList 全従業員一覧
 	 */
 	public List<Employee> findAll() {
 		// SQL文を作成
-		String sql = "SELECT * FROM employees ORDER BY hire_date";
+		String sql = "SELECT * FROM employees ORDER BY hire_date DESC";
 
 		// SQLの実行
 		List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
