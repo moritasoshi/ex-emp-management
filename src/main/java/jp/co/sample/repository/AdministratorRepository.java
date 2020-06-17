@@ -1,6 +1,7 @@
 package jp.co.sample.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -46,10 +47,15 @@ public class AdministratorRepository {
 	 * @return
 	 */
 	public Administrator findByMailAddressAndPassword(String mailAddress, String password) {
-		String sql = "SELECT id, name, mail_address, password FROM administrators WHERE mail_address = :mailAddress AND password = :password;";
-		SqlParameterSource param = new MapSqlParameterSource().addValue("maiAddress", mailAddress).addValue("password",
+		String sql = "SELECT * FROM administrators WHERE mail_address = :mailAddress AND password = :password;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password",
 				password);
-		Administrator administrator = template.queryForObject(sql, param, ADMINISTRATOR_ROW_MAPPER);
+		Administrator administrator;
+		try {
+			administrator = template.queryForObject(sql, param, ADMINISTRATOR_ROW_MAPPER);
+		} catch (EmptyResultDataAccessException e) {
+			administrator = null;
+		}
 		return administrator;
 	}
 
