@@ -90,4 +90,15 @@ public class AdministratorController {
 			return "forward:/employee/showList";
 		}
 	}
+	
+	/**
+	 * ログアウトを行う
+	 * 
+	 * @return ログイン画面にフォワード
+	 */
+	@RequestMapping("/logout")
+	public String logput() {
+		session.invalidate();
+		return "forward:/";
+	}
 }
