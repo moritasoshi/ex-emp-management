@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.sample.domain.Employee;
@@ -33,14 +35,20 @@ public class EmployeeController {
 	@RequestMapping("/showDetail")
 	public String showDetail(Integer id, Model model) {
 		Employee employee = employeeService.showDetail(id);
-		UpdateEmployeeForm form = new UpdateEmployeeForm();
-		BeanUtils.copyProperties(employee, form);
-		model.addAttribute("form", form);
+		UpdateEmployeeForm updateEmployeeForm = new UpdateEmployeeForm();
+		BeanUtils.copyProperties(employee, updateEmployeeForm);
+		model.addAttribute("updateEmployeeForm", updateEmployeeForm);
 		return "employee/detail";
 	}
 
 	@RequestMapping("/submit")
-	public String submit(UpdateEmployeeForm updateEmployeeForm, Integer id) {
+	public String submit(@Validated UpdateEmployeeForm updateEmployeeForm, BindingResult result, Integer id,
+			Model model) {
+		if (result.hasErrors()) {
+			System.out.println(result);
+			model.addAttribute("updateEmployeeForm", updateEmployeeForm);
+			return "employee/detail";
+		}
 		Employee employee = new Employee();
 		employee.setId(id);
 		employee.setDependentsCount(updateEmployeeForm.getDependentsCount());
