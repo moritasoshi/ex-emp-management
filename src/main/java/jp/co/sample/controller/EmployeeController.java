@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +17,11 @@ import jp.co.sample.service.EmployeeService;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
-	
+
 	@Autowired
 	private EmployeeService employeeService;
 	@Autowired
 	private HttpSession session;
-	
 
 	@RequestMapping("/showList")
 	public String showList() {
@@ -29,16 +29,16 @@ public class EmployeeController {
 		session.setAttribute("employeeList", employeeList);
 		return "employee/list";
 	}
-	
+
 	@RequestMapping("/showDetail")
 	public String showDetail(Integer id, Model model) {
 		Employee employee = employeeService.showDetail(id);
-		model.addAttribute("employee", employee);
-		UpdateEmployeeForm updateEmployeeForm = new UpdateEmployeeForm();
-		model.addAttribute("updateEmployeeForm", updateEmployeeForm);
+		UpdateEmployeeForm form = new UpdateEmployeeForm();
+		BeanUtils.copyProperties(employee, form);
+		model.addAttribute("form", form);
 		return "employee/detail";
 	}
-	
+
 	@RequestMapping("/submit")
 	public String submit(UpdateEmployeeForm updateEmployeeForm, Integer id) {
 		Employee employee = new Employee();
