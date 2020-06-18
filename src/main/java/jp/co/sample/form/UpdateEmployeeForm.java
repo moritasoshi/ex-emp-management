@@ -2,6 +2,8 @@ package jp.co.sample.form;
 
 import java.util.Date;
 
+import javax.validation.constraints.Pattern;
+
 public class UpdateEmployeeForm {
 	/**
 	 * ID
@@ -50,7 +52,8 @@ public class UpdateEmployeeForm {
 	/**
 	 * 扶養人数
 	 */
-	private Integer dependentsCount;
+	@Pattern(regexp = "\\d+", message = "扶養人数を半角数字で入力してください")
+	private String dependentsCount;
 
 	public Integer getId() {
 		return id;
@@ -140,11 +143,11 @@ public class UpdateEmployeeForm {
 		this.characteristics = characteristics;
 	}
 
-	public Integer getDependentsCount() {
+	public String getDependentsCount() {
 		return dependentsCount;
 	}
 
-	public void setDependentsCount(Integer dependentsCount) {
+	public void setDependentsCount(String dependentsCount) {
 		this.dependentsCount = dependentsCount;
 	}
 
