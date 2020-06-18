@@ -45,7 +45,8 @@ public class EmployeeController {
 	public String submit(@Validated UpdateEmployeeForm updateEmployeeForm, BindingResult result, Integer id,
 			Model model) {
 		if (result.hasErrors()) {
-			System.out.println(result);
+			Employee employee = employeeService.showDetail(id);
+			updateEmployeeForm.setHireDate(employee.getHireDate());
 			model.addAttribute("updateEmployeeForm", updateEmployeeForm);
 			return "employee/detail";
 		}
