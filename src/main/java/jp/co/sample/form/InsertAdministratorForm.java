@@ -1,17 +1,23 @@
 package jp.co.sample.form;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class InsertAdministratorForm {
 	/**
 	 * 名前
 	 */
+	@NotBlank(message = "氏名を入力してください")
 	private String name;
 	/**
 	 * メールアドレス
 	 */
+	@Pattern(regexp = "\\w+@[\\w.-_]+", message = "メールアドレスを入力してください")
 	private String mailAddress;
 	/**
 	 * パスワード
 	 */
+	@NotBlank(message = "パスワードを入力してください")
 	private String password;
 
 	@Override

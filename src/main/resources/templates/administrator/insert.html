@@ -40,9 +40,7 @@
 										<label for="name">
 											氏名:
 										</label>
-										<label class="error-messages">
-											氏名を入力してください
-										</label>
+											<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red">エラー!</span>										
 										<input type="text" name="name" id="name" th:field="*{name}" class="form-control" placeholder="山田太郎">
 									</div>
 								</div>
@@ -54,9 +52,8 @@
 										<label for="mailAddress">
 											メールアドレス:
 										</label>
-										<label  class="error-messages">
-											メールアドレスを入力してください
-										</label>
+											<span th:if="${#fields.hasErrors('mailAddress')}" th:errors="*{mailAddress}" style="color:red">エラー!</span>										
+											<span th:if="${mailAddressError}" th:text="${mailAddressError}" style="color:red">エラー!</span>										
 										<input type="text" name="mailAddress" id="mailAddress" th:field="*{mailAddress}" class="form-control" placeholder="yamada@mail.com">
 									</div>
 								</div>
@@ -68,9 +65,7 @@
 										<label for="passwaord">
 											パスワード:
 										</label>
-										<label class="error-messages">
-											パスワードを入力してください
-										</label>
+											<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red">エラー!</span>										
 										<input type="password" name="password" id="password"  th:field="*{password}"class="form-control" placeholder="password">
 									</div>
 								</div>

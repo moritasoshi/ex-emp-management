@@ -1,6 +1,7 @@
 package jp.co.sample.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -30,7 +31,7 @@ public class AdministratorRepository {
 	 * @param administrator 管理者情報
 	 * @return void
 	 */
-	public void insert(Administrator administrator) {
+	public void insert(Administrator administrator) throws DuplicateKeyException {
 		// sql文の作成
 		String sql = "INSERT INTO administrators(name, mail_address, password) VALUES(:name, :mailAddress, :password)";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", administrator.getName())

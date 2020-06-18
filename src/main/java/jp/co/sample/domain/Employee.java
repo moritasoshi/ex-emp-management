@@ -55,14 +55,14 @@ public class Employee {
 	/**
 	 * 扶養人数
 	 */
-	private Integer dependentsCount;
+	private String dependentsCount;
 
 	public Employee() {
 	}
 
 	public Employee(Integer id, String name, String image, String gender, Date hireDate, String mailAddress,
 			String zipCode, String address, String telephone, Integer salary, String characteristics,
-			Integer dependentsCount) {
+			String dependentsCount) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
@@ -173,11 +173,11 @@ public class Employee {
 		this.characteristics = characteristics;
 	}
 
-	public Integer getDependentsCount() {
+	public String getDependentsCount() {
 		return dependentsCount;
 	}
 
-	public void setDependentsCount(Integer dependentsCount) {
+	public void setDependentsCount(String dependentsCount) {
 		this.dependentsCount = dependentsCount;
 	}
 

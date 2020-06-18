@@ -65,16 +65,17 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのform要素を貼り付けます -->
-					<form method="post" action="list.html" th:action="@{'/employee/submit?id=' + ${form.id}}">
+					<form method="post" action="list.html" th:action="@{'/employee/submit?id=' + ${updateEmployeeForm.id}}">
 						<fieldset>
 							<legend>従業員情報</legend>
-							<table th:object="${form}" class="table table-striped">
+							<table th:object="${updateEmployeeForm}" class="table table-striped">
 							  <tr>
 							    <th nowrap>
 							      従業員名
 							    </th>
 							    <td>
 							     <span th:text="*{name}">山田花子</span>
+							     <input type="hidden" th:field="*{name}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -82,7 +83,8 @@
 							      写真
 							    </th>
 							    <td>
-							      <img th:src="'/img/'+*{image}">
+							     <img th:src="'/img/'+*{image}">
+							     <input type="hidden" th:field="*{image}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -91,6 +93,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{gender}">女性</span>
+							     <input type="hidden" th:field="*{gender}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -99,6 +102,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{hireDate}">2012/11/29</span>
+							     <input type="hidden" th:field="*{hireDate}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -107,6 +111,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{mailAddress}">yamada@sample.com</span>
+							     <input type="hidden" th:field="*{mailAddress}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -115,6 +120,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{zipCode}">111-1111</span>
+							     <input type="hidden" th:field="*{zipCode}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -123,6 +129,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{address}">東京都新宿区1-1-1</span>
+							     <input type="hidden" th:field="*{address}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -131,6 +138,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{telephone}">090-0000-0000</span>
+							     <input type="hidden" th:field="*{telephone}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -138,7 +146,8 @@
 							      給料
 							    </th>
 							    <td>
-							      <span th:text="*{salary}">400000円</span>
+							      <span th:text="*{salary}">400000</span>円
+							     <input type="hidden" th:field="*{salary}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -147,6 +156,7 @@
 							    </th>
 							    <td>
 							      <span th:text="*{characteristics}">明るく素直な性格です。リーダーシップを発揮します。新卒社員研修の時はグループ開発の時にリーダーを買ってでました。積極性も人間性も抜群です。周りに対する不満も聞いたことがありません。</span>
+							     <input type="hidden" th:field="*{characteristics}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -154,13 +164,7 @@
 							      扶養人数
 							    </th>
 							    <td>
-							    	<label class="error-messages">
-											扶養人数を入力してください
-									</label>
-									<label class="control-label" style="color: red" for="dependentsCount"></label>
-									<!-- hiddenでやる方法
-									<input type="hidden" th:value="${employee.id}" th:field="${updateEmployeeForm.id}"> 
-									-->
+									<span th:if="${#fields.hasErrors('dependentsCount')}" th:errors="*{dependentsCount}" style="color:red">エラー!</span>										
 									<input type="text" th:field="*{dependentsCount}" class="form-control">
 							    </td>
 							  </tr>

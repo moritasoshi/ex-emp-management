@@ -30,7 +30,7 @@ public class EmployeeRepository {
 		employee.setTelephone(rs.getString("telephone"));
 		employee.setSalary(rs.getInt("salary"));
 		employee.setCharacteristics(rs.getString("characteristics"));
-		employee.setDependentsCount(rs.getInt("dependents_count"));
+		employee.setDependentsCount(String.valueOf(rs.getInt("dependents_count")));
 		return employee;
 	};
 
@@ -77,7 +77,7 @@ public class EmployeeRepository {
 	public void update(Employee employee) {
 		String sql = "UPDATE employees SET dependents_count=:dependentsCount WHERE id=:id";
 		SqlParameterSource param = new MapSqlParameterSource()
-				.addValue("dependentsCount", employee.getDependentsCount()).addValue("id", employee.getId());
+				.addValue("dependentsCount", Integer.parseInt(employee.getDependentsCount())).addValue("id", employee.getId());
 		template.update(sql, param);
 	}
 
